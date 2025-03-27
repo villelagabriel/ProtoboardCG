@@ -1,0 +1,23 @@
+# Unity
+Library/
+Temp/
+Obj/
+Build/
+Builds/
+Logs/
+UserSettings/
+MemoryCaptures/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Visual Studio
+*.csproj
+*.sln
+*.user
+*.userprefs
+
+# Sistema
+.DS_Store
+Thumbs.db
