@@ -21062,6 +21062,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1449453442}
   - component: {fileID: 1449453441}
+  - component: {fileID: 1449453443}
   m_Layer: 0
   m_Name: Tutorial Manager
   m_TagString: Untagged
@@ -21076,7 +21077,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1449453440}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e76f5317f880aaf41b1fa7064fc895ac, type: 3}
   m_Name: 
@@ -21102,6 +21103,20 @@ Transform:
   - {fileID: 345895935}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1449453443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449453440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a56d93934c9b9494784d930c618e2ab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  protoboard: {fileID: 1294454825}
+  tutorialText: {fileID: 2018132532}
 --- !u!4 &1451567277 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4898168476347834, guid: 0464c51f3e579bd4ca5150116cebfe97, type: 3}

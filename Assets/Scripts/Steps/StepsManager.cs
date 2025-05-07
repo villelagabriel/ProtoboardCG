@@ -1,16 +1,19 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 using TMPro;
 
-public class StepsManager : MonoBehaviour
-{
-    public enum TutorialStep
-    {
+public class StepsManager : MonoBehaviour{
+    public enum TutorialStep{
         LookAround,
         FocusOnProtoboard,
+        ApproachProtoboard,
+        RotateProtoboard,
+        FacePlayerStep,
         CompleteTutorial
     }
 
+    public InputActionAsset actions;
     private PlayerControls controls;
     private Vector2 lastLookInput;
     private bool focusPressed;
@@ -22,8 +25,7 @@ public class StepsManager : MonoBehaviour
     private bool isFocusing = false;
     private float focusSpeed = 2f;
 
-    void Awake()
-    {
+    void Awake(){
         controls = new PlayerControls();
         controls.Player.Look.performed += ctx => lastLookInput = ctx.ReadValue<Vector2>();
         controls.Player.Look.canceled += ctx => lastLookInput = Vector2.zero;
@@ -33,31 +35,35 @@ public class StepsManager : MonoBehaviour
     void OnEnable() => controls.Enable();
     void OnDisable() => controls.Disable();
 
-    void Start()
-    {
+    void Start(){
         SetStep(TutorialStep.LookAround);
     }
 
-    void Update()
-    {
+    void Update(){
         currentStep?.Update(this);
-        if (isFocusing)
-        {
+        if (isFocusing){
             SmoothFocusCameraOnProtoboard();
         }
         focusPressed = false;
     }
 
-    public void SetStep(TutorialStep step)
-    {
+    public void SetStep(TutorialStep step){
         currentStep?.Exit(this);
-        switch (step)
-        {
+        switch (step){
             case TutorialStep.LookAround:
-                currentStep = new LookAroundStep();
+                currentStep = new First_LookAroundStep();
                 break;
             case TutorialStep.FocusOnProtoboard:
-                currentStep = new FocusOnProtoboardStep();
+                currentStep = new Second_FocusOnProtoboardStep();
+                break;
+            case TutorialStep.ApproachProtoboard:
+                currentStep = new Third_ApproachProtoboardStep();
+                break;
+            case TutorialStep.RotateProtoboard:
+                currentStep = new Fourth_RotateProtoboardStep();
+                break;
+            case TutorialStep.FacePlayerStep:
+                currentStep = new Fifth_FacePlayerStep();
                 break;
             case TutorialStep.CompleteTutorial:
                 currentStep = new CompleteTutorialStep();
@@ -72,15 +78,15 @@ public class StepsManager : MonoBehaviour
     public void StartFocusing() => isFocusing = true;
     public void StopFocusing() => isFocusing = false;
 
-    public void SetCameraControl(bool value)
-    {
+    public void SetCameraControl(bool value){
         var cameraControl = Camera.main.GetComponent<MouseLookNewInput>();
         if (cameraControl != null)
             cameraControl.enabled = value;
     }
 
-    private void SmoothFocusCameraOnProtoboard()
-    {
+    public bool IsFocusing() => isFocusing;
+
+    private void SmoothFocusCameraOnProtoboard(){
         Transform camTransform = Camera.main.transform;
         Vector3 directionToLook = protoboard.transform.position - camTransform.position;
         Quaternion targetRotation = Quaternion.LookRotation(directionToLook);
@@ -91,8 +97,7 @@ public class StepsManager : MonoBehaviour
             focusSpeed * Time.deltaTime * 100f
         );
 
-        if (Quaternion.Angle(camTransform.rotation, targetRotation) < 0.1f)
-        {
+        if (Quaternion.Angle(camTransform.rotation, targetRotation) < 0.1f){
             isFocusing = false;
         }
     }
