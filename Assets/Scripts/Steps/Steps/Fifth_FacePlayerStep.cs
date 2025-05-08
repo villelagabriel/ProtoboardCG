@@ -2,37 +2,66 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Fifth_FacePlayerStep : ITutorialStep {
-    private float dampingSpeed = 2f; 
+    private float dampingSpeed = 2f;
+    private int messageIndex = 0;
+    private string[] messages = new string[] {
+        "Este objeto é chamado de protoboard.",
+        "Você pode conectá-la com fios.",
+        "Ela é usada para montar circuitos.",
+        "Os furos estão conectados internamente.",
+        "As trilhas internas são conectadas desta maneira:",
+        "Tudo colocado aqui se conecta em cada linha vertical",
+        "As trilhas internas são conectadas desta maneira:",
+        "Tudo colocado aqui se conecta em na horizontal.",
+        "Ela tem este simbolo pois é aqui onde conectamos o terra e a fonte.",
+    };
+
+
+
     private Camera mainCamera;
 
     public void Enter(StepsManager manager){
         Debug.Log("5º Etapa Iniciada: Protoboard virada para o jogador");
-        manager.tutorialText.text = "A Protoboard agora deve ficar virada para você.";
+        manager.tutorialText.text = messages[messageIndex];
         mainCamera = Camera.main;
     }
 
     public void Update(StepsManager manager){
-        Transform camTransform = Camera.main.transform;
+        // Rotaciona a protoboard para a câmera
+        Transform camTransform = mainCamera.transform;
         Vector3 directionToLook = camTransform.position - manager.protoboard.transform.position;
-
         Quaternion targetRotation = Quaternion.LookRotation(directionToLook);
         targetRotation = Quaternion.Euler(targetRotation.eulerAngles.x + 90f, targetRotation.eulerAngles.y, targetRotation.eulerAngles.z);
 
         manager.protoboard.transform.rotation = Quaternion.Slerp(
             manager.protoboard.transform.rotation,
             targetRotation,
-            dampingSpeed  * Time.deltaTime
+            dampingSpeed * Time.deltaTime
         );
 
-        // Proceed to next step on spacebar press
-        if (Keyboard.current.spaceKey.wasPressedThisFrame){
-            Debug.Log("5º Etapa Concluída");
-            manager.SetStep(StepsManager.TutorialStep.CompleteTutorial);
+        if (Keyboard.current.fKey.wasPressedThisFrame){
+            messageIndex++;
+
+            if (messageIndex < messages.Length){
+                manager.tutorialText.text = messages[messageIndex];
+            } else {
+                Debug.Log("5º Etapa Concluída");
+                manager.trilhasDaProtoboardExternas.SetActive(false);
+                manager.SetStep(StepsManager.TutorialStep.ResetProtoboardStep);
+            }
+
+            if(messageIndex == 4) {
+                manager.trilhasDaProtoboardInternas.SetActive(true);
+            }
+            if(messageIndex == 6) {
+                manager.trilhasDaProtoboardInternas.SetActive(false);
+                manager.trilhasDaProtoboardExternas.SetActive(true);
+            }
+
         }
     }
 
-
     public void Exit(StepsManager manager){
-        // Nada específico para sair, mas você pode limpar ou restaurar valores aqui se necessário
+        // Pode resetar variáveis ou limpar textos, se necessário
     }
 }

@@ -10,6 +10,7 @@ public class StepsManager : MonoBehaviour{
         ApproachProtoboard,
         RotateProtoboard,
         FacePlayerStep,
+        ResetProtoboardStep,
         CompleteTutorial
     }
 
@@ -20,6 +21,9 @@ public class StepsManager : MonoBehaviour{
 
     public GameObject protoboard;
     public TextMeshProUGUI tutorialText;
+    
+    public GameObject trilhasDaProtoboardInternas;
+    public GameObject trilhasDaProtoboardExternas;
 
     private ITutorialStep currentStep;
     private bool isFocusing = false;
@@ -30,6 +34,9 @@ public class StepsManager : MonoBehaviour{
         controls.Player.Look.performed += ctx => lastLookInput = ctx.ReadValue<Vector2>();
         controls.Player.Look.canceled += ctx => lastLookInput = Vector2.zero;
         controls.Player.Focus.performed += ctx => focusPressed = true;
+
+        trilhasDaProtoboardInternas.SetActive(false);
+        trilhasDaProtoboardExternas.SetActive(false);
     }
 
     void OnEnable() => controls.Enable();
@@ -65,6 +72,11 @@ public class StepsManager : MonoBehaviour{
             case TutorialStep.FacePlayerStep:
                 currentStep = new Fifth_FacePlayerStep();
                 break;
+            case TutorialStep.ResetProtoboardStep:
+                currentStep = new Sixth_ResetProtoboardStep();
+                break;
+
+                
             case TutorialStep.CompleteTutorial:
                 currentStep = new CompleteTutorialStep();
                 break;

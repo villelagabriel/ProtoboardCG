@@ -1,7 +1,6 @@
 using UnityEngine;
 
-public class Second_FocusOnProtoboardStep : ITutorialStep
-{
+public class Second_FocusOnProtoboardStep : ITutorialStep {
     private bool hasFocused = false;
 
     public void Enter(StepsManager manager){
