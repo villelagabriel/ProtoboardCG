@@ -12709,11 +12709,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5a87f4616fa2578958c700cd8c4cea9d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.5909
+      value: -0.596
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5a87f4616fa2578958c700cd8c4cea9d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.3896
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5a87f4616fa2578958c700cd8c4cea9d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -25662,28 +25662,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1449453441
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1449453440}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e76f5317f880aaf41b1fa7064fc895ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lastLookInput: {x: 0, y: 0}
-  focusPressed: 0
-  protoboard: {fileID: 1294454825}
-  tutorialText: {fileID: 2018132532}
-  currentStep: 0
-  hasFocused: 0
-  isFocusing: 0
-  focusSpeed: 2
-  lookAroundCurrent: 0
-  lookAroundLimit: 100
 --- !u!4 &1449453442
 Transform:
   m_ObjectHideFlags: 0
@@ -25722,6 +25700,8 @@ MonoBehaviour:
   tutorialText: {fileID: 2018132532}
   trilhasDaProtoboardInternas: {fileID: 522607795}
   trilhasDaProtoboardExternas: {fileID: 1313585118}
+  fonte: {fileID: 1735832009}
+  jumpers_fonte: {fileID: 1723069633}
 --- !u!4 &1451567277 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4898168476347834, guid: 0464c51f3e579bd4ca5150116cebfe97, type: 3}
@@ -31401,6 +31381,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58d93148047363d45a12c673b277817d, type: 3}
+--- !u!1 &1735832009 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 351d3d5068f3a8f45b4b4f8c655d6bac, type: 3}
+  m_PrefabInstance: {fileID: 1976709087}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1737633839
 GameObject:
   m_ObjectHideFlags: 0
@@ -40144,4 +40129,3 @@ SceneRoots:
   - {fileID: 1723069634}
   - {fileID: 522607796}
   - {fileID: 653912168}
-

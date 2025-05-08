@@ -46,6 +46,7 @@ public class StepsManager : MonoBehaviour{
         fonte.SetActive(false);
         jumpers_fonte.SetActive(false);
         tabelaCores.SetActive(false);
+        resistor.SetActive(false);
     }
 
     void OnEnable() => controls.Enable();

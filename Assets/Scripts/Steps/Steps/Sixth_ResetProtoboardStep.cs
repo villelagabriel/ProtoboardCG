@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 
 public class Sixth_ResetProtoboardStep : ITutorialStep {
     private Vector3 targetPosition = new Vector3(-0.6070499f, 2.183581f, -3.403715f);
@@ -12,64 +14,71 @@ public class Sixth_ResetProtoboardStep : ITutorialStep {
     private float cameraMoveSpeed = 2f;
     private float cameraRotateSpeed = 3f;
 
+    private bool reachedPosition = false;
+
     public void Enter(StepsManager manager){
         Debug.Log("6º Etapa Iniciada: Reposicionando a protoboard");
-        manager.tutorialText.text = "Ela tem este simbolo pois é aqui onde conectamos o terra e a fonte.";
+        manager.tutorialText.text = "Ela tem este símbolo pois é aqui onde conectamos o terra e a fonte.";
 
         mainCamera = Camera.main;
+        reachedPosition = false;
     }
 
     public void Update(StepsManager manager){
+        if (!reachedPosition) {
+            // Move a protoboard
+            manager.protoboard.transform.position = Vector3.MoveTowards(
+                manager.protoboard.transform.position,
+                targetPosition,
+                moveSpeed * Time.deltaTime
+            );
 
-        // Move a protoboard
-        manager.protoboard.transform.position = Vector3.MoveTowards(
-            manager.protoboard.transform.position,
-            targetPosition,
-            moveSpeed * Time.deltaTime
-        );
+            // Rotaciona a protoboard
+            manager.protoboard.transform.rotation = Quaternion.RotateTowards(
+                manager.protoboard.transform.rotation,
+                targetRotation,
+                rotateSpeed * Time.deltaTime * 100f
+            );
 
-        // Rotaciona a protoboard
-        manager.protoboard.transform.rotation = Quaternion.RotateTowards(
-            manager.protoboard.transform.rotation,
-            targetRotation,
-            rotateSpeed * Time.deltaTime * 100f
-        );
+            // Posiciona a câmera bem acima da protoboard
+            Vector3 desiredCameraPosition = targetPosition + cameraAboveOffset;
+            mainCamera.transform.position = Vector3.Lerp(
+                mainCamera.transform.position,
+                desiredCameraPosition,
+                cameraMoveSpeed * Time.deltaTime
+            );
 
-        // Posiciona a câmera bem acima da protoboard
-        Vector3 desiredCameraPosition = targetPosition + cameraAboveOffset;
-        mainCamera.transform.position = Vector3.Lerp(
-            mainCamera.transform.position,
-            desiredCameraPosition,
-            cameraMoveSpeed * Time.deltaTime
-        );
+            // Faz a câmera olhar diretamente para baixo
+            Quaternion lookDownRotation = Quaternion.Euler(90f, 0f, 0f);
+            mainCamera.transform.rotation = Quaternion.Slerp(
+                mainCamera.transform.rotation,
+                lookDownRotation,
+                cameraRotateSpeed * Time.deltaTime
+            );
 
-        // Faz a câmera olhar diretamente para baixo
-        Quaternion lookDownRotation = Quaternion.Euler(90f, 0f, 0f);
-        mainCamera.transform.rotation = Quaternion.Slerp(
-            mainCamera.transform.rotation,
-            lookDownRotation,
-            cameraRotateSpeed * Time.deltaTime
-        );
+            // Verifica se a protoboard e a câmera chegaram aos destinos
+            bool protoboardDone =
+                Vector3.Distance(manager.protoboard.transform.position, targetPosition) < 0.01f &&
+                Quaternion.Angle(manager.protoboard.transform.rotation, targetRotation) < 0.5f;
 
-        // Verifica se a protoboard e a câmera chegaram aos destinos
-        bool protoboardDone =
-            Vector3.Distance(manager.protoboard.transform.position, targetPosition) < 0.01f &&
-            Quaternion.Angle(manager.protoboard.transform.rotation, targetRotation) < 0.5f;
+            bool cameraDone =
+                Vector3.Distance(mainCamera.transform.position, targetPosition + cameraAboveOffset) < 0.05f &&
+                Quaternion.Angle(mainCamera.transform.rotation, Quaternion.Euler(90f, 0f, 0f)) < 1f;
 
-        bool cameraDone =
-            Vector3.Distance(mainCamera.transform.position, desiredCameraPosition) < 0.05f &&
-            Quaternion.Angle(mainCamera.transform.rotation, lookDownRotation) < 1f;
-
-        if (protoboardDone && cameraDone) {
-            manager.fonte.SetActive(true);
-            manager.jumpers_fonte.SetActive(true);
-            Debug.Log("6º Etapa Concluída: Protoboard e câmera posicionadas");
-
+            if (protoboardDone && cameraDone) {
+                manager.fonte.SetActive(true);
+                manager.jumpers_fonte.SetActive(true);
+                Debug.Log("Protoboard e câmera posicionadas. Aguardando tecla F.");
+                reachedPosition = true;
+            }
+        }
+        else if (Keyboard.current.fKey.wasPressedThisFrame) {
+            Debug.Log("Tecla F pressionada. Avançando para próxima etapa.");
             manager.SetStep(StepsManager.TutorialStep.OhmsLawExplanationStep);
         }
     }
 
     public void Exit(StepsManager manager){
-        // Nada a limpar por enquanto
+        // Limpeza se necessário
     }
 }
