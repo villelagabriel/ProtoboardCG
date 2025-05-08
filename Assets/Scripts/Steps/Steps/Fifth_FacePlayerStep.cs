@@ -54,7 +54,6 @@ public class Fifth_FacePlayerStep : ITutorialStep {
                 manager.trilhasDaProtoboardInternas.SetActive(false);
                 manager.trilhasDaProtoboardExternas.SetActive(true);
             }
-
         }
     }
 

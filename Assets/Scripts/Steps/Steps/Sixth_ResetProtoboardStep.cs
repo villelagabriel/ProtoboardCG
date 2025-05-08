@@ -15,7 +15,7 @@ public class Sixth_ResetProtoboardStep : ITutorialStep {
     public void Enter(StepsManager manager){
         Debug.Log("6º Etapa Iniciada: Reposicionando a protoboard");
         manager.tutorialText.text = "Ela tem este simbolo pois é aqui onde conectamos o terra e a fonte.";
-;
+
         mainCamera = Camera.main;
     }
 
@@ -63,8 +63,9 @@ public class Sixth_ResetProtoboardStep : ITutorialStep {
         if (protoboardDone && cameraDone) {
             manager.fonte.SetActive(true);
             manager.jumpers_fonte.SetActive(true);
-            // manager.tutorialText.text = "Protoboard posicionada!";
-            // manager.SetStep(StepsManager.TutorialStep.CompleteTutorial);
+            Debug.Log("6º Etapa Concluída: Protoboard e câmera posicionadas");
+
+            manager.SetStep(StepsManager.TutorialStep.OhmsLawExplanationStep);
         }
     }
 
