@@ -11,6 +11,7 @@ public class StepsManager : MonoBehaviour{
         RotateProtoboard,
         FacePlayerStep,
         ResetProtoboardStep,
+        OhmsLawExplanationStep,
         CompleteTutorial
     }
 
@@ -20,6 +21,7 @@ public class StepsManager : MonoBehaviour{
     private bool focusPressed;
 
     public GameObject protoboard;
+    public GameObject resistor;
     public TextMeshProUGUI tutorialText;
     
     public GameObject trilhasDaProtoboardInternas;
@@ -75,8 +77,9 @@ public class StepsManager : MonoBehaviour{
             case TutorialStep.ResetProtoboardStep:
                 currentStep = new Sixth_ResetProtoboardStep();
                 break;
-
-                
+            case TutorialStep.OhmsLawExplanationStep:
+                currentStep = new Sixth_OhmsLawExplanationStep();
+                break;
             case TutorialStep.CompleteTutorial:
                 currentStep = new CompleteTutorialStep();
                 break;

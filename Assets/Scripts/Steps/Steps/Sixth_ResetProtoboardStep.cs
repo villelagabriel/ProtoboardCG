@@ -66,7 +66,7 @@ public class Sixth_ResetProtoboardStep : ITutorialStep {
             manager.tutorialText.text = "Protoboard posicionada!";
             stepComplete = true;
 
-            manager.SetStep(StepsManager.TutorialStep.CompleteTutorial);
+            manager.SetStep(StepsManager.TutorialStep.OhmsLawExplanationStep);
         }
     }
 
