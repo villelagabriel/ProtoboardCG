@@ -22,6 +22,7 @@ public class StepsManager : MonoBehaviour{
 
     public GameObject protoboard;
     public GameObject resistor;
+    public GameObject tabelaCores;
     public TextMeshProUGUI tutorialText;
     
     public GameObject trilhasDaProtoboardInternas;
@@ -39,6 +40,7 @@ public class StepsManager : MonoBehaviour{
 
         trilhasDaProtoboardInternas.SetActive(false);
         trilhasDaProtoboardExternas.SetActive(false);
+        tabelaCores.SetActive(false);
     }
 
     void OnEnable() => controls.Enable();

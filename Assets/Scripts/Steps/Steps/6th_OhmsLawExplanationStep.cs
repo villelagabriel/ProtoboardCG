@@ -14,6 +14,8 @@ public class Sixth_OhmsLawExplanationStep : ITutorialStep
     manager.tutorialText.fontSize = 20f;
     manager.tutorialText.text = "Lei de Ohm \n A lei de Ohm afirma que a resistência elétrica é determinada pela razão entre o potencial elétrico e a corrente elétrica \n R = V/I";
 
+    Cursor.visible = true;
+
     mainCamera = Camera.main;
   }
 
@@ -34,11 +36,12 @@ public class Sixth_OhmsLawExplanationStep : ITutorialStep
     // Proceed to next step on spacebar press
     if (Keyboard.current.spaceKey.wasPressedThisFrame)
     {
+      manager.tabelaCores.SetActive(true);
       manager.tutorialText.fontSize = previousFontSize;
       manager.tutorialText.text = "Consultando a tabela de cores de resistores, qual é o valor da resistência elétrica do resistor mostrado?";
 
       Debug.Log("6º Etapa Concluída");
-      manager.SetStep(StepsManager.TutorialStep.CompleteTutorial);
+      //manager.SetStep(StepsManager.TutorialStep.CompleteTutorial);
     }
   }
 
