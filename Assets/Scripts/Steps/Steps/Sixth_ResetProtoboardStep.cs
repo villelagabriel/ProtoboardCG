@@ -6,21 +6,20 @@ public class Sixth_ResetProtoboardStep : ITutorialStep {
 
     private float moveSpeed = 2f;
     private float rotateSpeed = 2f;
-    private bool stepComplete = false;
 
     private Camera mainCamera;
-    private Vector3 cameraAboveOffset = new Vector3(0, 1.5f, 0); // Bem acima
+    private Vector3 cameraAboveOffset = new Vector3(0, 1.5f, 0); 
     private float cameraMoveSpeed = 2f;
     private float cameraRotateSpeed = 3f;
 
     public void Enter(StepsManager manager){
         Debug.Log("6º Etapa Iniciada: Reposicionando a protoboard");
-        manager.tutorialText.text = "Reposicionando a protoboard para o local final...";
+        manager.tutorialText.text = "Ela tem este simbolo pois é aqui onde conectamos o terra e a fonte.";
+;
         mainCamera = Camera.main;
     }
 
     public void Update(StepsManager manager){
-        if (stepComplete) return;
 
         // Move a protoboard
         manager.protoboard.transform.position = Vector3.MoveTowards(
@@ -62,11 +61,10 @@ public class Sixth_ResetProtoboardStep : ITutorialStep {
             Quaternion.Angle(mainCamera.transform.rotation, lookDownRotation) < 1f;
 
         if (protoboardDone && cameraDone) {
-            Debug.Log("6º Etapa Concluída: Protoboard e câmera posicionadas");
-            manager.tutorialText.text = "Protoboard posicionada!";
-            stepComplete = true;
-
-            manager.SetStep(StepsManager.TutorialStep.CompleteTutorial);
+            manager.fonte.SetActive(true);
+            manager.jumpers_fonte.SetActive(true);
+            // manager.tutorialText.text = "Protoboard posicionada!";
+            // manager.SetStep(StepsManager.TutorialStep.CompleteTutorial);
         }
     }
 

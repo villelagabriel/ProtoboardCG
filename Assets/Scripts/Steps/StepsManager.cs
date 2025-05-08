@@ -24,6 +24,9 @@ public class StepsManager : MonoBehaviour{
     
     public GameObject trilhasDaProtoboardInternas;
     public GameObject trilhasDaProtoboardExternas;
+    public GameObject fonte;
+    public GameObject jumpers_fonte;
+
 
     private ITutorialStep currentStep;
     private bool isFocusing = false;
@@ -37,6 +40,8 @@ public class StepsManager : MonoBehaviour{
 
         trilhasDaProtoboardInternas.SetActive(false);
         trilhasDaProtoboardExternas.SetActive(false);
+        fonte.SetActive(false);
+        jumpers_fonte.SetActive(false);
     }
 
     void OnEnable() => controls.Enable();

@@ -13,10 +13,7 @@ public class Fifth_FacePlayerStep : ITutorialStep {
         "Tudo colocado aqui se conecta em cada linha vertical",
         "As trilhas internas são conectadas desta maneira:",
         "Tudo colocado aqui se conecta em na horizontal.",
-        "Ela tem este simbolo pois é aqui onde conectamos o terra e a fonte.",
     };
-
-
 
     private Camera mainCamera;
 
@@ -53,7 +50,7 @@ public class Fifth_FacePlayerStep : ITutorialStep {
             if(messageIndex == 4) {
                 manager.trilhasDaProtoboardInternas.SetActive(true);
             }
-            if(messageIndex == 6) {
+            if(messageIndex == 7) {
                 manager.trilhasDaProtoboardInternas.SetActive(false);
                 manager.trilhasDaProtoboardExternas.SetActive(true);
             }
